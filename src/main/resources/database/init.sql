@@ -1,0 +1,15 @@
+CREATE TABLE IF NOT EXISTS users
+(
+    user_id SERIAL NOT NULL PRIMARY KEY ,
+    username VARCHAR(256) NOT NULL ,
+    password VARCHAR(256) NOT NULL ,
+    email VARCHAR(256) NOT NULL,
+    active BOOLEAN NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS roles
+(
+    role_id INT NOT NULL PRIMARY KEY ,
+    role_name VARCHAR(256) NOT NULL
+);
+
