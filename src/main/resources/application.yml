@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: ${DATABASE_URL}
-    username: ${DATABASE_USER}
-    password: ${DATABASE_PASSWORD}
+    url: jdbc:postgresql://localhost:5432/shoppizza
+    username: user
+    password: hackme
     initialization-mode: always
     schema: classpath*:database/init.sql
   jpa:
@@ -10,3 +10,5 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: update
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect

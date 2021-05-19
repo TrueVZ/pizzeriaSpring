@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+</head>
+<body>
+<h3>Создать новый товар</h3>
+<form th:method="POST" th:action="@{/admin/products/create}" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label for="productTypeSelect">Выберите категорию</label>
+        <select class="form-select" aria-label="Default select example" id="productTypeSelect" Name="productTypeId" required>
+            <option th:each="productType: ${listProductType}" th:value="${productType.id}" th:text="${productType.name}"></option>
+        </select>
+        <label for="exampleFormControlInput1" class="form-label">Название товара</label>
+        <input required type="text" class="form-control" id="exampleFormControlInput1"  Name="name">
+        <label for="price" class="form-label">Цена (в рублях)</label>
+        <input required type="number" class="form-control" id="price" placeholder="200" Name="price">
+        <label for="description" class="form-label">Описание товара</label>
+        <textarea class="form-control" id="description" rows="3" Name="description" placeholder="Описание товара"></textarea>
+        <label for="formFile" class="form-label">Загрузите картинку</label>
+        <input class="form-control" type="file" id="formFile" accept="image/x-png" Name="image" required>
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary mb-3">Создать</button>
+    </div>
+</form>
+<table class="table my-5">
+    <thead>
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Image</th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Price</th>
+        <th scope="col">Type</th>
+        <th scope="col">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="product : ${listProducts}">
+        <th scope="row" th:text="${product.id}"></th>
+        <td><img th:src="${product.image_url}" width="300px"></td>
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.description}"></td>
+        <td th:text="${product.price}"></td>
+        <td th:text="${product.productType.name}"></td>
+        <td>
+            <a href="#"
+               th:href="@{'/admin/products/'+ ${product.id}}"
+               class="btn btn-danger">Update</a>
+            <a href="#"
+               th:href="@{'/admin/delete_product/'+ ${product.id}}"
+               class="btn btn-danger">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

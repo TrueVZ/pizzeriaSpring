@@ -8,6 +8,7 @@ FROM openjdk:15-alpine
 
 ARG JAR_FILE=usr/src/app/target/*.jar
 COPY --from=build $JAR_FILE /usr/app/app.jar
+COPY src/main/resources/static/img /usr/app/static/img
 
 ENTRYPOINT exec java -jar /usr/app/app.jar
 EXPOSE 8080
