@@ -17,6 +17,7 @@ import ru.mirea.springpizzashop.services.PurchaseService;
 import ru.mirea.springpizzashop.services.UserService;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -89,8 +90,17 @@ public class UserController {
         return "redirect:/home";
     }
 
-//    @GetMapping("/cart")
-//    public String getCart(Model model){
-//
-//    }
+    @GetMapping("/cart")
+    public String getCart(Authentication authentication, Model model){
+        User user = ((User) userService.loadUserByUsername(authentication.getName()));
+        int sum = 0;
+        List<Purchase> purchaseList = purchaseService.getAllPurchaseUser(user.getId());
+        for (Purchase purchase: purchaseList){
+            sum += productService.getProductById(purchase.getProductId()).getPrice() * purchase.getProductCount();
+        }
+        model.addAttribute("total", sum);
+        model.addAttribute("purchaseList", purchaseList);
+        model.addAttribute("productService", productService);
+        return "/cart";
+    }
 }

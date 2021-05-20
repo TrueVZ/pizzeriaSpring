@@ -1,10 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-
+<div class="container">
+    <h1 class="display-4 my-3"> Cart</h1>
+    <div class="row">
+        <ul class="list-group col-9">
+            <li class="list-group-item d-flex justify-content-around">
+                <span class="h6"> Product name</span>
+                <span class="h6"> Product price</span>
+                <span class="h6"> Product count</span>
+            </li>
+        </ul>
+        <ul class="list-group col-9" th:each="purchase : ${purchaseList}">
+            <li class="list-group-item d-flex justify-content-around">
+                <span class="my-auto" th:text="${productService.getProductById(purchase.getProductId()).getName()}"></span>
+                <span class="my-auto" th:text="${productService.getProductById(purchase.getProductId()).getPrice()}"></span>
+                <span class="my-auto" th:text="${purchase.getProductCount()}"></span>
+            </li>
+        </ul>
+        <ul class="list-group col-9">
+            <li class="list-group d-flex justify-content-end">
+                <span class="h6" th:text="'Total : '+${total}"></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-end">
+                <a href="#" type="button" class="btn btn-primary">Check out</a>
+            </li>
+        </ul>
+    </div>
+</div>
 </body>
 </html>

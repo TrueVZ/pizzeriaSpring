@@ -7,7 +7,6 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
 </head>
 <body>
-
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="#">PizzaShop</a>
@@ -32,14 +31,14 @@
     </nav>
 
 <div class="container" th:each="productType: ${productTypeList}">
-  <h1 th:text="${productType.name}" class="text-lg-center"></h1>
-  <div class="row row-cols-3">
-    <div class="col-sm-4" th:each="product: ${productList}"> <!-- Refact this-->
-      <div class="card mt-4 ui-corner-left " style="width: 18rem;" th:if="${product.productType.id == productType.id}">
+  <div class="row">
+      <h1 th:text="${productType.name}" class="text-lg-center"></h1>
+    <div class="col-sm d-flex align-items-stretch" th:each="product: ${productType.getProductList}"> <!-- Refact this-->
+      <div class="card" style="width: 18rem;" th:if="${product.productType.id == productType.id}">
         <div class="card-body">
           <h5 th:text="${product.name}" class="card-title"></h5>
           <p th:text="${product.description}" class="card-text"></p>
-          <p th:text="${product.price}" class="card"></p>
+          <p th:text="${product.price}  + Руб." class="card-text"></p>
          <img th:src="${product.image_url}" class="card-img-top" width="250">
           <form method="POST" th:action="@{'/cart/addProduct/{id}'(id=${product.id})}" th:method="post">
           <div class="form-group">
@@ -50,7 +49,9 @@
           </form>
         </div>
       </div>
+        <div th:unless="${product.productType.id == productType.id}"></div>
   </div>
+
 </div>
 </div>
 </body>
