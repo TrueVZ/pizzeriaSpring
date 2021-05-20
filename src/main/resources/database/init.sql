@@ -29,6 +29,14 @@ CREATE TABLE IF NOT EXISTS products
     image_url VARCHAR(256) NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS cart
+(
+    id SERIAL NOT NULL primary key ,
+    user_id INT NOT NULL ,
+    product_id INT NOT NULL ,
+    product_count INT NOT NULL
+);
+
 
 INSERT INTO roles (role_id, role_name)
 SELECT 1, 'ROLE_USER'

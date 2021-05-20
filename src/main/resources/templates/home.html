@@ -11,16 +11,23 @@
   <h1 th:text="${productType.name}" class="text-lg-center"></h1>
   <div class="row row-cols-3">
     <div class="col-sm-4" th:each="product: ${productList}"> <!-- Refact this-->
-      <div class="card mt-4 ui-corner-left" th:if="${product.productType.id == productType.id}">
+      <div class="card mt-4 ui-corner-left " style="width: 18rem;" th:if="${product.productType.id == productType.id}">
         <div class="card-body">
           <h5 th:text="${product.name}" class="card-title"></h5>
           <p th:text="${product.description}" class="card-text"></p>
           <p th:text="${product.price}" class="card"></p>
-          <img th:src="${product.image_url}" class="card-img-top">
+         <img th:src="${product.image_url}" class="card-img-top" width="250">
+          <form method="POST" th:action="@{'/cart/addProduct/{id}'(id=${product.id})}" th:method="post">
+          <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-10">
+              <button type="submit" class="btn btn-light">Add</button>
+            </div>
+          </div>
+          </form>
         </div>
       </div>
-    </div>
   </div>
+</div>
 </div>
 </body>
 </html>

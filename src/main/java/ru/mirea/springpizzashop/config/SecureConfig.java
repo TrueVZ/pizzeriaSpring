@@ -25,7 +25,7 @@ public class SecureConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/", "/home", "/register", "/login", "/css/**", "/img/**").permitAll()
         .anyRequest().authenticated()
         .and()
-        .formLogin().and().logout().logoutSuccessUrl("/").and().sessionManagement()
+        .formLogin().and().logout().logoutSuccessUrl("/home").and().sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
         .sessionFixation().migrateSession();
     }
