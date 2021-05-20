@@ -89,8 +89,8 @@ public class UserController {
         return "redirect:/home";
     }
 
-    @GetMapping("/cart")
-    public String getCart(Model model){
-
-    }
+//    @GetMapping("/cart")
+//    public String getCart(Model model){
+//
+//    }
 }
