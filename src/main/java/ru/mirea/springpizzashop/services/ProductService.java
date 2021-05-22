@@ -19,6 +19,7 @@ public class ProductService {
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
+    @Transactional
     public Product getProductById(Long id){
         return productRepository.findProductById(id);
     }
@@ -36,8 +37,11 @@ public class ProductService {
     }
 
     @Transactional
+    public byte[] getPictureById(Long id){
+        return productRepository.getPictureById(id);
+    }
+    @Transactional
     public void deleteProduct(Long id){
         productRepository.deleteProductById(id);
-
     }
 }

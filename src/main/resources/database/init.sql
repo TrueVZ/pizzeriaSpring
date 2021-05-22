@@ -25,8 +25,7 @@ CREATE TABLE IF NOT EXISTS products
     product_type_id INT ,
     product_name VARCHAR(256) NOT NULL ,
     price real NOT NULL ,
-    description text NOT NULL,
-    image_url VARCHAR(256) NOT NULL
+    description text NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS cart

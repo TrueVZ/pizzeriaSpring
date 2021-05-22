@@ -22,7 +22,7 @@ public class SecureConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{
         http.csrf().disable().cors().disable()
         .authorizeRequests()
-        .antMatchers("/", "/home", "/register", "/login", "/css/**", "/img/**").permitAll()
+        .antMatchers("/", "/home", "/register", "/login", "/css/**", "/img/**", "/product/**").permitAll()
         .anyRequest().authenticated()
         .and()
         .formLogin().and().logout().logoutSuccessUrl("/home").and().sessionManagement()

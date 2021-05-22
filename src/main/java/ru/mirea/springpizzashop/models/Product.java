@@ -3,6 +3,7 @@ package ru.mirea.springpizzashop.models;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
@@ -23,6 +24,10 @@ public class Product {
 
     @Column(name = "image_url")
     private String image_url;
+
+    @Lob
+    @Column(name = "picture")
+    private byte[] picture;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "product_type_id")

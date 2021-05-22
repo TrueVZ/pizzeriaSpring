@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/shoppizza
+    url: jdbc:postgresql://database:5432/shoppizza
     username: user
     password: hackme
     initialization-mode: always
@@ -16,4 +16,4 @@ spring:
       hibernate:
         enable_lazy_load_no_trans: true
 server:
-  port: 8081
+  port: 8080

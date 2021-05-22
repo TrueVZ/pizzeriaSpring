@@ -1,6 +1,7 @@
 package ru.mirea.springpizzashop.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -16,6 +17,10 @@ import ru.mirea.springpizzashop.services.ProductTypeService;
 import ru.mirea.springpizzashop.services.PurchaseService;
 import ru.mirea.springpizzashop.services.UserService;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,6 +73,13 @@ public class UserController {
         return "home";
     }
 
+    @GetMapping("/product/image/{id}")
+    public void showImage(@PathVariable Long id, HttpServletResponse response) throws IOException {
+        response.setContentType("image/png");
+        InputStream is = new ByteArrayInputStream(productService.getPictureById(id));
+        IOUtils.copy(is, response.getOutputStream());
+    }
+
     @PostMapping("/cart/addProduct/{productId}")
     public String addPurchase(Authentication authentication, @PathVariable("productId")Long id, Model model){
         User user = ((User)userService.loadUserByUsername(authentication.getName()));
@@ -90,6 +102,19 @@ public class UserController {
         return "redirect:/home";
     }
 
+    @DeleteMapping("/cart/deleteProduct{productId}")
+    public void deletePurchase(Authentication authentication, @PathVariable("productId")Long id){
+        purchaseService.deletePurchase(id);
+    }
+
+    @PostMapping("/cart/check")
+    public String checkOut(Authentication authentication){
+        long userId = ((User) userService.loadUserByUsername(authentication.getName())).getId();
+        purchaseService.deleteAllPurchaseByUserId(userId);
+        return "redirect:/home";
+    }
+
+
     @GetMapping("/cart")
     public String getCart(Authentication authentication, Model model){
         User user = ((User) userService.loadUserByUsername(authentication.getName()));
@@ -101,6 +126,6 @@ public class UserController {
         model.addAttribute("total", sum);
         model.addAttribute("purchaseList", purchaseList);
         model.addAttribute("productService", productService);
-        return "/cart";
+        return "cart";
     }
 }

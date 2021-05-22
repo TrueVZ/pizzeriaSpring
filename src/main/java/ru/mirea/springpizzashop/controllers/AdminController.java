@@ -11,6 +11,8 @@ import ru.mirea.springpizzashop.services.ProductService;
 import ru.mirea.springpizzashop.services.ProductTypeService;
 import ru.mirea.springpizzashop.services.UserService;
 
+import java.io.IOException;
+
 @Controller
 @RequestMapping("/admin")
 @RequiredArgsConstructor
@@ -53,7 +55,12 @@ public class AdminController {
         product.setName(name);
         product.setPrice(price);
         product.setDescription(description);
-        product.setImage_url(fileUploadService.upload(image));
+        try {
+            product.setPicture(image.getBytes());
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
         productService.addProduct(product);
 
         return "redirect:/admin/products";
