@@ -9,27 +9,35 @@
 <header th:insert="fragments.html :: nav"></header>
 <div class="container">
     <h1 class="display-4 my-3"> Cart</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Product name</th>
+            <th scope="col">Product price</th>
+            <th scope="col">Product count</th>
+            <th scope="col">Remove</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="purchase: ${purchaseList}">
+            <td th:text="${productService.getProductById(purchase.getProductId()).getName()}"></td>
+            <td th:text="${productService.getProductById(purchase.getProductId()).getPrice()}"></td>
+            <td th:text="${purchase.getProductCount()}"></td>
+            <td>
+                <a href="#"
+                   th:href="@{'/cart/delete/' + ${purchase.id}}"
+                   class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
     <div class="row">
-        <ul class="list-group col-9">
-            <li class="list-group-item d-flex justify-content-around">
-                <span class="h6"> Product name</span>
-                <span class="h6"> Product price</span>
-                <span class="h6"> Product count</span>
-            </li>
-        </ul>
-        <ul class="list-group col-9" th:each="purchase : ${purchaseList}">
-            <li class="list-group-item d-flex justify-content-around">
-                <span class="my-auto" th:text="${productService.getProductById(purchase.getProductId()).getName()}"></span>
-                <span class="my-auto" th:text="${productService.getProductById(purchase.getProductId()).getPrice()}"></span>
-                <span class="my-auto" th:text="${purchase.getProductCount()}"></span>
-            </li>
-        </ul>
         <ul class="list-group col-9">
             <li class="list-group d-flex justify-content-end">
                 <span class="h6" th:text="'Total : '+${total}"></span>
             </li>
             <li class="list-group-item d-flex justify-content-end">
-                <a href="#" type="button" class="btn btn-primary">Check out</a>
+                <a href="/cart/check" type="button" class="btn btn-primary">Check out</a>
             </li>
         </ul>
     </div>

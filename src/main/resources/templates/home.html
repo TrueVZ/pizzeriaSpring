@@ -18,13 +18,7 @@
           <p th:text="${product.description}" class="card-text"></p>
           <p th:text="${product.price}  + Руб." class="card-text"></p>
          <img th:src="@{'product/image/{id}'(id=${product.id})}" class="card-img-top" width="250">
-          <form method="POST" th:action="@{'/cart/addProduct/{id}'(id=${product.id})}" th:method="post">
-          <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-10">
-              <button type="submit" class="btn btn-light">Add</button>
-            </div>
-          </div>
-          </form>
+            <button type="submit" th:onclick="'javascript:addPurchase(' + ${product.id} + ')'" class="btn btn-light">Add</button>
         </div>
       </div>
         <div th:unless="${product.productType.id == productType.id}"></div>
@@ -33,4 +27,15 @@
 </div>
 </div>
 </body>
+<script>
+    const addPurchase = (id) => {
+        fetch('/cart/addProduct/' + id, {method : 'POST'}).then(function (response) {
+            return response.text();
+        }).then(function (html) {
+            console.log(html)
+        }).catch(function (err) {
+            console.warn('Something went wrong.', err);
+        });
+    }
+</script>
 </html>

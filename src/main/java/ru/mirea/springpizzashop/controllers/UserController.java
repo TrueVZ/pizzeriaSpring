@@ -80,8 +80,9 @@ public class UserController {
         IOUtils.copy(is, response.getOutputStream());
     }
 
+    @ResponseBody
     @PostMapping("/cart/addProduct/{productId}")
-    public String addPurchase(Authentication authentication, @PathVariable("productId")Long id, Model model){
+    public void addPurchase(Authentication authentication, @PathVariable("productId")Long id, Model model){
         User user = ((User)userService.loadUserByUsername(authentication.getName()));
         if(!authentication.isAuthenticated()){
             model.addAttribute("Error", "Not login");
@@ -99,15 +100,16 @@ public class UserController {
                 purchaseService.addPurchase(purchase);
             }
         }
-        return "redirect:/home";
+//        return "redirect:/home";
     }
 
-    @DeleteMapping("/cart/deleteProduct{productId}")
-    public void deletePurchase(Authentication authentication, @PathVariable("productId")Long id){
+    @GetMapping("/cart/delete/{purchaseId}")
+    public String deletePurchase(@PathVariable("purchaseId")Long id){
         purchaseService.deletePurchase(id);
+        return "redirect:/cart";
     }
 
-    @PostMapping("/cart/check")
+    @GetMapping("/cart/check")
     public String checkOut(Authentication authentication){
         long userId = ((User) userService.loadUserByUsername(authentication.getName())).getId();
         purchaseService.deleteAllPurchaseByUserId(userId);

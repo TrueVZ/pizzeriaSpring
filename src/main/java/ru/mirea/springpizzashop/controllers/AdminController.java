@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.mirea.springpizzashop.models.Product;
-import ru.mirea.springpizzashop.services.FileUploadService;
 import ru.mirea.springpizzashop.services.ProductService;
 import ru.mirea.springpizzashop.services.ProductTypeService;
 import ru.mirea.springpizzashop.services.UserService;
@@ -20,7 +19,6 @@ public class AdminController {
     private final UserService userService;
     private final ProductService productService;
     private final ProductTypeService productTypeService;
-    private final FileUploadService fileUploadService;
 
     @GetMapping
     public String index(Model model){

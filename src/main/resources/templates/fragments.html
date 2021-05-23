@@ -5,7 +5,7 @@
 <body>
 <nav class="navbar navbar-expand-lg">
     <div class="container">
-        <a class="navbar-brand" href="#">PizzaShop</a>
+        <a class="navbar-brand" href="/home">PizzaShop</a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
@@ -22,8 +22,8 @@
                 <button sec:authorize="isAuthenticated()"
                         class="btn btn-outline-danger my-2 my-sm-0 btn-sm" type="submit">Log out</button>
             </form>
-            <form class="form-inlice my-2 my" form-method="post" th:action="@{/login}">
-                <button sec:authorize="isAnonymous()" th:href="@{/login}"
+            <form class="form-inline my-2 my" th:action="@{/login}">
+                <button sec:authorize="isAnonymous()"
                         class="btn btn-outline-info my-2 my-sm-0 btn-sm" type="submit">Log in</button>
             </form>
         </div>
